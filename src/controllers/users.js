@@ -53,7 +53,7 @@ export async function signIn(req, res, next) {
         message: "Invalid email or password",
       });
     }
-   
+
     const isPasswordsValid = await bcrypt.compare(password, user.password);
     if (!isPasswordsValid) {
       return res.status(401).json({
