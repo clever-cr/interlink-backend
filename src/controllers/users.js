@@ -67,6 +67,7 @@ export async function signIn(req, res, next) {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      title: user.title,
     };
     const token = jwt.sign(returnedUser, process.env.SECRET_KEY, {
       expiresIn: "1d",
