@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export async function signUp(req, res, next) {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, title } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
@@ -18,6 +18,7 @@ export async function signUp(req, res, next) {
       password: encryptedPassword,
       firstName,
       lastName,
+      title,
     });
 
     const returnedUser = {
@@ -25,6 +26,7 @@ export async function signUp(req, res, next) {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      title: user.title,
     };
 
     const token = jwt.sign(returnedUser, process.env.SECRET_KEY, {
